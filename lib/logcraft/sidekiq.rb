@@ -4,7 +4,6 @@ require_relative "sidekiq/version"
 
 module Logcraft
   module Sidekiq
-    class Error < StandardError; end
-    # Your code goes here...
+    autoload :JobContext, 'logcraft/sidekiq/job_context'
   end
 end
