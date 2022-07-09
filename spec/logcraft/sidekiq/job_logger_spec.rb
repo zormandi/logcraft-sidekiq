@@ -4,10 +4,6 @@ RSpec.describe Logcraft::Sidekiq::JobLogger do
   subject(:job_logger) { described_class.new }
   let(:job_hash) { sidekiq_job_hash jid: 'job ID', worker: 'TestWorkers::TestWorker' }
 
-  before do
-    ::Sidekiq.logger = Logcraft.logger 'Sidekiq'
-  end
-
   describe '#call' do
     it 'yields the block it was called with' do
       expect { |block| job_logger.call(job_hash, :queue, &block) }.to yield_control

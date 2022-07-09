@@ -17,4 +17,8 @@ RSpec.configure do |config|
   end
 
   config.include JobHelpers
+
+  config.before :all do
+    ::Sidekiq.logger = Logcraft.logger 'Sidekiq'
+  end
 end
