@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'logcraft/sidekiq'
+require 'logcraft/rspec'
+
 require_relative 'support/job_helpers'
 
 RSpec.configure do |config|
