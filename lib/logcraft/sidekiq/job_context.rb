@@ -13,12 +13,14 @@ module Logcraft
         private
 
         def basic_info_from(job)
-          info_hash = {jid: job['jid'],
-                       queue: job['queue'],
-                       worker: job_class(job),
-                       created_at: job['created_at'],
-                       enqueued_at: job['enqueued_at'],
-                       run_count: (job['retry_count'] || -1) + 2}
+          info_hash = {
+            jid: job['jid'],
+            queue: job['queue'],
+            worker: job_class(job),
+            created_at: job['created_at'],
+            enqueued_at: job['enqueued_at'],
+            run_count: (job['retry_count'] || -1) + 2
+          }
           info_hash[:bid] = job['bid'] if job['bid']
           info_hash[:tags] = job['tags'] if job['tags']
           info_hash
