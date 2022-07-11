@@ -4,6 +4,7 @@ require 'logcraft'
 require 'sidekiq'
 
 require_relative 'sidekiq/version'
+require_relative 'sidekiq/railtie' if defined? Rails
 
 module Logcraft
   module Sidekiq
