@@ -25,11 +25,12 @@ module Logcraft
       private
 
       def benchmark
-        start_time = ::Process.clock_gettime(::Process::CLOCK_MONOTONIC)
+        start_time = ::Process.clock_gettime ::Process::CLOCK_MONOTONIC, :millisecond
         yield
       ensure
-        end_time = ::Process.clock_gettime(::Process::CLOCK_MONOTONIC)
-        add_to_log_context duration_sec: (end_time - start_time).round(3)
+        end_time = ::Process.clock_gettime ::Process::CLOCK_MONOTONIC, :millisecond
+        add_to_log_context duration: end_time - start_time,
+                           duration_sec: (end_time - start_time) / 1000.0
       end
 
       def logger

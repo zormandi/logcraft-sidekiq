@@ -20,10 +20,12 @@ RSpec.describe Logcraft::Sidekiq::JobLogger do
     end
 
     it 'logs a finish message with job context and timing' do
-      allow(::Process).to receive(:clock_gettime).with(Process::CLOCK_MONOTONIC).and_return(1.0, 3.666666)
+      allow(::Process).to receive(:clock_gettime).with(Process::CLOCK_MONOTONIC, :millisecond).and_return 2373390260,
+                                                                                                          2373390403
       expect { job_logger.call(job_hash, :queue) {} }.to log(message: 'TestWorkers::TestWorker finished',
                                                              jid: 'job ID',
-                                                             duration_sec: 2.667).at_level(:info)
+                                                             duration: 143,
+                                                             duration_sec: 0.143).at_level(:info)
     end
 
     context 'when the job itself logs a message' do
@@ -46,10 +48,12 @@ RSpec.describe Logcraft::Sidekiq::JobLogger do
       let(:call_with_exception) { job_logger.call(job_hash, :queue) { raise Exception } }
 
       it 'lets the error through and logs a failure message with job context and timing' do
-        allow(::Process).to receive(:clock_gettime).with(Process::CLOCK_MONOTONIC).and_return(1.0, 2.0)
+        allow(::Process).to receive(:clock_gettime).with(Process::CLOCK_MONOTONIC, :millisecond).and_return 2373390260,
+                                                                                                            2373390403
         expect { call_with_exception }.to raise_error(Exception).and log(message: 'TestWorkers::TestWorker failed',
                                                                          jid: 'job ID',
-                                                                         duration_sec: 1.0).at_level(:info)
+                                                                         duration: 143,
+                                                                         duration_sec: 0.143).at_level(:info)
       end
     end
   end
