@@ -6,7 +6,7 @@ RSpec.describe Logcraft::Sidekiq::DeathLogger do
   describe '#call' do
     subject(:call) { death_logger.call job, error }
 
-    let(:job) { sidekiq_job_hash(jid: 'job ID') }
+    let(:job) { sidekiq_job_hash(jid: 'job ID', worker: 'TestWorkers::TestWorker') }
     let(:error) { StandardError.new 'error message' }
 
     it 'logs the error in a single message at ERROR level' do

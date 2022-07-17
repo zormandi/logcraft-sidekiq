@@ -28,8 +28,16 @@ module Logcraft
 
         def named_arguments_from(job)
           {}.tap do |arguments|
-            method_parameters_of(job).each_with_index do |(_, param_name), index|
-              arguments[param_name] = job['args'][index]
+            params, arg_index = method_parameters_of(job), 0
+            params.each do |param_type, param_name|
+              if param_type == :rest
+                rest_arg_count = job['args'].count - params.count + 1
+                arguments[param_name] = job['args'].slice arg_index, rest_arg_count
+                arg_index += rest_arg_count
+              else
+                arguments[param_name] = job['args'][arg_index]
+                arg_index += 1
+              end
             end
           end
         end

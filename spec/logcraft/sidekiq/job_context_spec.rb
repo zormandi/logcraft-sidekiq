@@ -3,6 +3,8 @@
 RSpec.describe Logcraft::Sidekiq::JobContext do
   describe '.from_job_hash' do
     subject(:job_message) { described_class.from_job_hash job_hash }
+
+    let(:now) { Time.now }
     let(:job_hash) do
       sidekiq_job_hash jid: 'job ID',
                        queue: 'job queue',
@@ -11,7 +13,12 @@ RSpec.describe Logcraft::Sidekiq::JobContext do
                        created_at: now,
                        enqueued_at: now
     end
-    let(:now) { Time.now }
+    let(:test_worker_perform) do
+      ->(_) do
+        def perform(customer_id, name)
+        end
+      end
+    end
 
     it 'contains all relevant information about the job, including its parameters by name' do
       expect(job_message).to include jid: 'job ID',
@@ -59,6 +66,44 @@ RSpec.describe Logcraft::Sidekiq::JobContext do
 
       it 'contains the tags' do
         expect(job_message).to include tags: ['a-tag', 'b-tag']
+      end
+    end
+
+    context "when the job's parameters are not all required" do
+      let(:test_worker_perform) do
+        ->(_) do
+          def perform(user_id, *args, last_arg)
+          end
+        end
+      end
+      let(:job_hash) { sidekiq_job_hash args: [1, 'customer name', 2, 'more args', 3] }
+
+      it 'contains the params' do
+        expect(job_message).to include params: {
+                                         user_id: 1,
+                                         args: ['customer name', 2, 'more args'],
+                                         last_arg: 3
+                                       }
+      end
+
+      context 'when called with just enough arguments' do
+        let(:job_hash) { sidekiq_job_hash args: [1, 2] }
+
+        it 'contains the rest arg as empty' do
+          expect(job_message).to include params: {
+                                           user_id: 1,
+                                           args: [],
+                                           last_arg: 2
+                                         }
+        end
+      end
+
+      context 'when called with just too few arguments' do
+        let(:job_hash) { sidekiq_job_hash args: [1] }
+
+        it 'raises no error but no other behavior is defined as the call is erroneous' do
+          expect { job_message }.not_to raise_error
+        end
       end
     end
 

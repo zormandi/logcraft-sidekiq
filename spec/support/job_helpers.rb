@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-module TestWorkers
-  class TestWorker
-    def perform(customer_id, name) end
-  end
-end
-
 module JobHelpers
   def sidekiq_job_hash(jid: 'job id',
                        bid: nil,

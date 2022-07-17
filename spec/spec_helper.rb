@@ -4,6 +4,7 @@ require 'logcraft/sidekiq'
 require 'logcraft/rspec'
 
 require_relative 'support/job_helpers'
+require_relative 'support/test_worker'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -17,6 +18,7 @@ RSpec.configure do |config|
   end
 
   config.include JobHelpers
+  config.include_context 'Test worker'
 
   config.before :all do
     ::Sidekiq.logger = Logcraft.logger 'Sidekiq'
