@@ -7,8 +7,8 @@ module JobHelpers
                        queue: 'job queue',
                        worker: 'TestWorkers::TestWorker',
                        args: [],
-                       created_at: Time.now,
-                       enqueued_at: Time.now)
+                       created_at: Time.now.to_f,
+                       enqueued_at: Time.now.to_f)
     {
       'jid' => jid,
       'bid' => bid,

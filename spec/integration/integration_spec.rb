@@ -40,6 +40,7 @@ RSpec.describe 'Sidekiq job running in full integration' do
                                            'queue' => 'default',
                                            'worker' => 'IntegrationTestWorker',
                                            'run_count' => 1,
+                                           'created_at' => /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}/,
                                            'params' => {'param1' => 'test', 'param2' => 'data'},
                                            'message' => 'IntegrationTestWorker started'),
                             hash_including('level' => 'INFO', 'run_count' => 1, 'message' => 'Job is executing'),

@@ -4,14 +4,14 @@ RSpec.describe Logcraft::Sidekiq::JobContext do
   describe '.from_job_hash' do
     subject(:job_message) { described_class.from_job_hash job_hash }
 
-    let(:now) { Time.now }
+    let(:now_as_float) { Time.now.to_f }
     let(:job_hash) do
       sidekiq_job_hash jid: 'job ID',
                        queue: 'job queue',
                        worker: 'TestWorkers::TestWorker',
                        args: [1, 'customer name'],
-                       created_at: now,
-                       enqueued_at: now
+                       created_at: now_as_float,
+                       enqueued_at: now_as_float
     end
     let(:test_worker_perform) do
       ->(_) do
@@ -28,8 +28,8 @@ RSpec.describe Logcraft::Sidekiq::JobContext do
                                        customer_id: 1,
                                        name: 'customer name',
                                      },
-                                     created_at: now,
-                                     enqueued_at: now
+                                     created_at: Time.at(now_as_float).iso8601(3),
+                                     enqueued_at: Time.at(now_as_float).iso8601(3)
     end
 
     it 'contains the number of times this job has run (including the current execution)' do

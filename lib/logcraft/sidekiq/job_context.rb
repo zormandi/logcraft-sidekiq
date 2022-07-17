@@ -17,8 +17,8 @@ module Logcraft
             jid: job['jid'],
             queue: job['queue'],
             worker: job_class(job),
-            created_at: job['created_at'],
-            enqueued_at: job['enqueued_at'],
+            created_at: Time.at(job['created_at']).iso8601(3),
+            enqueued_at: Time.at(job['enqueued_at']).iso8601(3),
             run_count: (job['retry_count'] || -1) + 2
           }
           info_hash[:bid] = job['bid'] if job['bid']
