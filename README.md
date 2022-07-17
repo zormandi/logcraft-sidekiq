@@ -63,7 +63,7 @@ end
 TestWorker.perform_async 42
 
 #=> {"timestamp":"2022-07-17T18:23:36.320+02:00","level":"INFO","logger":"Sidekiq","hostname":"MacbookPro.local","pid":20740,"jid":"aad6c56ece22b115fb91821e","queue":"default","worker":"TestWorker","created_at":"2022-07-17T18:23:35.932+02:00","enqueued_at":"2022-07-17T18:23:35.932+02:00","run_count":1,"tid":"hrg","params":{"customer_id":42},"message":"TestWorker started"}
-#=> {"timestamp":"2022-07-17T18:23:36.320+02:00","level":"INFO","logger":"Sidekiq","hostname":"MacbookPro.local","pid":20740,"jid":"aad6c56ece22b115fb91821e","queue":"default","worker":"TestWorker","created_at":"2022-07-17T18:23:35.932+02:00","enqueued_at":"2022-07-17T18:23:35.932+02:00","run_count":1,"tid":"hrg","params":{"customer_id":42},"message":"Customer not found"}
+#=> {"timestamp":"2022-07-17T18:23:36.320+02:00","level":"WARN","logger":"Sidekiq","hostname":"MacbookPro.local","pid":20740,"jid":"aad6c56ece22b115fb91821e","queue":"default","worker":"TestWorker","created_at":"2022-07-17T18:23:35.932+02:00","enqueued_at":"2022-07-17T18:23:35.932+02:00","run_count":1,"tid":"hrg","params":{"customer_id":42},"message":"Customer not found"}
 #=> {"timestamp":"2022-07-17T18:23:36.324+02:00","level":"INFO","logger":"Sidekiq","hostname":"MacbookPro.local","pid":20740,"jid":"aad6c56ece22b115fb91821e","queue":"default","worker":"TestWorker","created_at":"2022-07-17T18:23:35.932+02:00","enqueued_at":"2022-07-17T18:23:35.932+02:00","run_count":1,"tid":"hrg","params":{"customer_id":42},"duration":4,"duration_sec":0.004,"message":"TestWorker finished"}
 ```
 
