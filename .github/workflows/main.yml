@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Ruby ${{ matrix.ruby }}
+    name: Ruby ${{ matrix.ruby }}, Sidekiq ${{ matrix.sidekiq }}
     runs-on: ubuntu-latest
     services:
       redis:
@@ -22,6 +22,16 @@ jobs:
           - '2.7'
           - '3.0'
           - '3.1'
+        sidekiq:
+          - '6.0'
+          - '6.1'
+          - '6.2'
+          - '6.3'
+          - '6.4'
+          - '6.5'
+
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/sidekiq_${{ matrix.sidekiq }}.gemfile
 
     steps:
       - uses: actions/checkout@v3

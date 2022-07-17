@@ -16,7 +16,11 @@ module Logcraft
     def self.initialize
       ::Sidekiq.logger = Logcraft.logger 'Sidekiq'
       ::Sidekiq.configure_server do |config|
-        config[:job_logger] = JobLogger
+        if config.respond_to? :[]=
+          config[:job_logger] = JobLogger
+        else
+          config.options[:job_logger] = JobLogger
+        end
         config.error_handlers.delete_if do |handler|
           (defined?(::Sidekiq::ExceptionHandler) && defined?(::Sidekiq::ExceptionHandler::Logger) && handler.is_a?(::Sidekiq::ExceptionHandler::Logger)) ||
             (handler.is_a?(Method) && handler.receiver.name == 'Sidekiq' && handler.name == :default_error_handler)
