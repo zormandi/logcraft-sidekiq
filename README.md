@@ -75,8 +75,8 @@ logged at ERROR level. Both messages are single line events, containing all rele
 
 ### Job-specific log level
 
-Sidekiq supports setting a log level per worker but Logcraft::Sidekiq breaks this feature. Continuing support for it
-would lead to a lot of complexity in the code and frankly, I'm not convinced it's worth it. If you really need and
+Sidekiq supports setting a log level per worker but Logcraft::Sidekiq ignores this feature. Supporting it would 
+lead to a lot of complexity in the code and frankly, I'm not convinced it's worth it. If you really need and
 use this feature then please reach out to me. In the meantime, the workaround is quite simple:
 
 ```ruby
