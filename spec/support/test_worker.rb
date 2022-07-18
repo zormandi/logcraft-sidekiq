@@ -9,12 +9,6 @@ RSpec.shared_context 'Test worker' do
   end
 
   before do
-    TestWorkers = Module.new
-    TestWorkers.const_set :TestWorker, Class.new(&test_worker_perform)
-  end
-
-  after do
-    TestWorkers.send :remove_const, :TestWorker
-    Object.send :remove_const, :TestWorkers
+    stub_const 'TestWorkers::TestWorker', Class.new(&test_worker_perform)
   end
 end
