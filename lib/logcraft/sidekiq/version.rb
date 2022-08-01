@@ -2,6 +2,6 @@
 
 module Logcraft
   module Sidekiq
-    VERSION = '0.99.0.rc'
+    VERSION = '1.0.0'
   end
 end

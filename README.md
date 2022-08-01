@@ -1,6 +1,7 @@
 # Logcraft::Sidekiq
 
 [![Build Status](https://github.com/zormandi/logcraft-sidekiq/actions/workflows/main.yml/badge.svg)](https://github.com/zormandi/logcraft-sidekiq/actions/workflows/main.yml)
+[![Gem Version](https://badge.fury.io/rb/logcraft-sidekiq.svg)](https://badge.fury.io/rb/logcraft-sidekiq)
 
 Logcraft::Sidekiq is a structured logging solution for [Sidekiq](https://github.com/mperham/sidekiq), using
 the [Logcraft](https://github.com/zormandi/logcraft) gem.
