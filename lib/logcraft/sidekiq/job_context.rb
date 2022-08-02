@@ -23,6 +23,7 @@ module Logcraft
           }
           info_hash[:bid] = job['bid'] if job['bid']
           info_hash[:tags] = job['tags'] if job['tags']
+          info_hash[:cattr] = job['cattr'] if job['cattr']
           info_hash
         end
 

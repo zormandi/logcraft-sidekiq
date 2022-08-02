@@ -69,6 +69,14 @@ RSpec.describe Logcraft::Sidekiq::JobContext do
       end
     end
 
+    context 'when the job has "current attributes"' do
+      let(:job_hash) { sidekiq_job_hash cattr: {'some' => 'data'} }
+
+      it 'contains the tags' do
+        expect(job_message).to include cattr: {'some' => 'data'}
+      end
+    end
+
     context "when the job's parameters are not all required" do
       let(:test_worker_perform) do
         ->(_) do
