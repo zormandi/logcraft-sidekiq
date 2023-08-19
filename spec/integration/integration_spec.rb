@@ -42,15 +42,15 @@ RSpec.describe 'Sidekiq job running in full integration' do
                                            'run_count' => 1,
                                            'created_at' => /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}/,
                                            'params' => {'param1' => 'test', 'param2' => 'data'},
-                                           'message' => 'IntegrationTestWorker started'),
-                            hash_including('level' => 'INFO', 'run_count' => 1, 'message' => 'Job is executing'),
-                            hash_including('level' => 'INFO', 'run_count' => 1, 'message' => 'IntegrationTestWorker failed'),
-                            hash_including('level' => 'WARN', 'run_count' => 1, 'message' => 'Error occured in job'),
-                            hash_including('level' => 'INFO', 'run_count' => 2, 'message' => 'IntegrationTestWorker started'),
-                            hash_including('level' => 'INFO', 'run_count' => 2, 'message' => 'Job is executing'),
-                            hash_including('level' => 'INFO', 'run_count' => 2, 'message' => 'IntegrationTestWorker failed'),
-                            hash_including('level' => 'WARN', 'run_count' => 2, 'message' => 'Error occured in job'),
-                            hash_including('level' => 'ERROR', 'message' => 'Error occured in job')
+                                           'message' => 'IntegrationTestWorker started')
+    expect(logs).to include hash_including('level' => 'INFO', 'run_count' => 1, 'message' => 'Job is executing')
+    expect(logs).to include hash_including('level' => 'INFO', 'run_count' => 1, 'message' => 'IntegrationTestWorker failed')
+    expect(logs).to include hash_including('level' => 'WARN', 'run_count' => 1, 'message' => 'Error occured in job')
+    expect(logs).to include hash_including('level' => 'INFO', 'run_count' => 2, 'message' => 'IntegrationTestWorker started')
+    expect(logs).to include hash_including('level' => 'INFO', 'run_count' => 2, 'message' => 'Job is executing')
+    expect(logs).to include hash_including('level' => 'INFO', 'run_count' => 2, 'message' => 'IntegrationTestWorker failed')
+    expect(logs).to include hash_including('level' => 'WARN', 'run_count' => 2, 'message' => 'Error occured in job')
+    expect(logs).to include hash_including('level' => 'ERROR', 'message' => 'Error occured in job')
 
     warning_logs = logs.select { |log| log['level'] == 'WARN' }
     expect(warning_logs.count).to eq 2
