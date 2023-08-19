@@ -23,9 +23,13 @@ RSpec.describe 'Sidekiq job running in full integration' do
 
   def wait_for_logs_from_finished_job
     logs = []
-    60.times do
+    120.times do
       logs = File.readlines(logfile).map { |line| JSON.parse line }
-      logs.any? { |log| log.fetch('run_count', 0) > 1 } ? break : sleep(0.5)
+      if (logs.count { |log_line| log_line['message'] == 'Error occured in job' }) < 3
+        sleep(0.5)
+      else
+        break
+      end
     end
     logs
   end
