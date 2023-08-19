@@ -28,6 +28,11 @@ jobs:
           - '6.5'
           - '7.0'
           - '7.latest'
+        exclude:
+          - ruby: '2.6'
+            sidekiq: '7.0'
+          - ruby: '2.6'
+            sidekiq: '7.latest'
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/sidekiq_${{ matrix.sidekiq }}.gemfile
