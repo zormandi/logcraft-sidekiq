@@ -21,6 +21,6 @@ RSpec.configure do |config|
   config.include_context 'Test worker'
 
   config.before :all do
-    ::Sidekiq.logger = Logcraft.logger 'Sidekiq'
+    Logcraft::Sidekiq.initialize_logger
   end
 end

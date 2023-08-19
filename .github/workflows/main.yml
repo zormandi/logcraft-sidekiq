@@ -26,6 +26,8 @@ jobs:
           - '6.0'
           - '6.4'
           - '6.5'
+          - '7.0'
+          - '7.latest'
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/sidekiq_${{ matrix.sidekiq }}.gemfile
