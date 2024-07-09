@@ -6,7 +6,7 @@ module Logcraft
       include Logcraft::LogContextHelper
 
       def initialize(config_or_logger = ::Sidekiq.logger)
-        @logger = if config_or_logger.kind_of?(::Sidekiq::Config)
+        @logger = if defined?(::Sidekiq::Config) && config_or_logger.kind_of?(::Sidekiq::Config)
                     config_or_logger.logger
                   else
                     config_or_logger
