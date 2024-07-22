@@ -33,6 +33,8 @@ jobs:
           - ruby: '2.6'
             sidekiq: '7.0'
           - ruby: '2.6'
+            sidekiq: '7.3'
+          - ruby: '2.6'
             sidekiq: '7.latest'
 
     env:
