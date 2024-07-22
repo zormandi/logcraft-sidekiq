@@ -5,8 +5,12 @@ module Logcraft
     class JobLogger
       include Logcraft::LogContextHelper
 
-      def initialize(logger = ::Sidekiq.logger)
-        @logger = logger
+      def initialize(config_or_logger = ::Sidekiq.logger)
+        @logger = if config_or_logger.respond_to? :logger
+                    config_or_logger.logger
+                  else
+                    config_or_logger
+                  end
       end
 
       def call(job_hash, _queue)

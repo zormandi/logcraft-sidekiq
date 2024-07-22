@@ -56,6 +56,21 @@ RSpec.describe Logcraft::Sidekiq::JobLogger do
                                                                          duration_sec: 0.143).at_level(:info)
       end
     end
+
+    if defined? ::Sidekiq::Config
+      context 'when the job logger is instantiated with a Sidekiq::Config instead of a Logger' do
+        subject(:job_logger) { described_class.new config }
+        let(:config) { ::Sidekiq::Config.new }
+
+        before do
+          config.logger = ::Sidekiq.logger
+        end
+
+        it 'logs a start message including the job context' do
+          expect { job_logger.call(job_hash, :queue) {} }.to log message: 'TestWorkers::TestWorker started', jid: 'job ID'
+        end
+      end
+    end
   end
 
   describe '#prepare' do
