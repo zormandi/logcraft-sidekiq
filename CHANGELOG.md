@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2024-07-24
+### Added
+- Added support for Sidekiq 7. Thanks to [@wfarr](https://github.com/wfarr) for contributing! ([#4](https://github.com/zormandi/logcraft-sidekiq/pull/4))
+
+### Fixed
+- Eliminated deprecation warning in preparation for Sidekiq 8. Thanks to [@wfarr](https://github.com/wfarr) for contributing! ([#3](https://github.com/zormandi/logcraft-sidekiq/pull/3))
+
 ## [1.1.0] - 2023-08-19
 ### Added
 - Added support for Sidekiq 7.
