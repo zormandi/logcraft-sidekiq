@@ -16,5 +16,14 @@ RSpec.describe Logcraft::Sidekiq::ErrorLogger do
     it 'logs the job context' do
       expect { call }.to log jid: 'job ID'
     end
+
+    context 'when called with a third argument starting from Sidekiq 8' do
+      subject(:call) { error_logger.call error, context, config }
+      let(:config) { double }
+
+      it 'accepts the third argument' do
+        expect { call }.not_to raise_error
+      end
+    end
   end
 end
