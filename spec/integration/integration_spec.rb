@@ -29,7 +29,7 @@ RSpec.describe 'Sidekiq job running in full integration' do
         next if line.start_with? "Signal INFO not supported"
 
         JSON.parse line
-      end
+      end.compact
       if (logs.count { |log_line| log_line['message'] == 'Error occured in job' }) < 3
         sleep(0.5)
       else
