@@ -33,11 +33,11 @@ module Logcraft
 
     def self.initialize_logger
       case ::Sidekiq::VERSION.chr
-      when '7'
-        ::Sidekiq.configure_client { |config| config.logger = Logcraft.logger 'Sidekiq' }
-        ::Sidekiq.configure_server { |config| config.logger = Logcraft.logger 'Sidekiq' }
       when '6'
         ::Sidekiq.logger = Logcraft.logger 'Sidekiq'
+      else
+        ::Sidekiq.configure_client { |config| config.logger = Logcraft.logger 'Sidekiq' }
+        ::Sidekiq.configure_server { |config| config.logger = Logcraft.logger 'Sidekiq' }
       end
     end
   end

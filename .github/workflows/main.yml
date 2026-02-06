@@ -18,7 +18,6 @@ jobs:
     strategy:
       matrix:
         ruby:
-          - '2.6'
           - '2.7'
           - '3.0'
           - '3.1'
@@ -28,14 +27,7 @@ jobs:
           - '6.5'
           - '7.0'
           - '7.3'
-          - '7.latest'
-        exclude:
-          - ruby: '2.6'
-            sidekiq: '7.0'
-          - ruby: '2.6'
-            sidekiq: '7.3'
-          - ruby: '2.6'
-            sidekiq: '7.latest'
+          - '8.1'
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/sidekiq_${{ matrix.sidekiq }}.gemfile

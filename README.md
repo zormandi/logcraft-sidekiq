@@ -4,7 +4,7 @@
 [![Gem Version](https://badge.fury.io/rb/logcraft-sidekiq.svg)](https://badge.fury.io/rb/logcraft-sidekiq)
 
 Logcraft::Sidekiq is a structured logging solution for [Sidekiq](https://github.com/mperham/sidekiq), using
-the [Logcraft](https://github.com/zormandi/logcraft) gem. It supports (and is tested with) Sidekiq 6 and 7.
+zthe [Logcraft](https://github.com/zormandi/logcraft) gem. It supports (and is tested with) Sidekiq 6, 7 and 8.
 
 ## Installation
 

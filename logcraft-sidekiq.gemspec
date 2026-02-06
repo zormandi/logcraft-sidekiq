@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "logcraft"
-  spec.add_dependency "sidekiq", ">= 6.0", "< 8.0"
+  spec.add_dependency "sidekiq", ">= 6.0", "< 9.0"
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", ">= 12.0"
