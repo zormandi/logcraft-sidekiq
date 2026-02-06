@@ -25,7 +25,6 @@ RSpec.describe 'Sidekiq job running in full integration' do
     logs = []
     120.times do
       logs = File.readlines(logfile).map do |line|
-        puts line
         next if line.start_with? "Signal INFO not supported"
 
         JSON.parse line

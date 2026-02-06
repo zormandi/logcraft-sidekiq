@@ -33,6 +33,12 @@ jobs:
             sidekiq: '8.1'
           - ruby: '3.1'
             sidekiq: '8.1'
+          - ruby: '3.2'
+            sidekiq: '6.0'
+          - ruby: '3.2'
+            sidekiq: '6.4'
+          - ruby: '3.2'
+            sidekiq: '7.0'
 
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/sidekiq_${{ matrix.sidekiq }}.gemfile
