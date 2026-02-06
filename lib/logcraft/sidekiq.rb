@@ -36,6 +36,7 @@ module Logcraft
       when '6'
         ::Sidekiq.logger = Logcraft.logger 'Sidekiq'
       else
+        require 'ostruct' unless defined? OpenStruct # Temporary workaround for new Logcraft version not being released yet
         ::Sidekiq.configure_client { |config| config.logger = Logcraft.logger 'Sidekiq' }
         ::Sidekiq.configure_server { |config| config.logger = Logcraft.logger 'Sidekiq' }
       end
