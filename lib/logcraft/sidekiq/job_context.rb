@@ -17,14 +17,23 @@ module Logcraft
             jid: job['jid'],
             queue: job['queue'],
             worker: job_class(job),
-            created_at: Time.at(job['created_at']).iso8601(3),
-            enqueued_at: Time.at(job['enqueued_at']).iso8601(3),
+            created_at: time_from(job['created_at']).iso8601(3),
+            enqueued_at: time_from(job['enqueued_at']).iso8601(3),
             run_count: (job['retry_count'] || -1) + 2
           }
           info_hash[:bid] = job['bid'] if job['bid']
           info_hash[:tags] = job['tags'] if job['tags']
           info_hash[:cattr] = job['cattr'] if job['cattr']
           info_hash
+        end
+
+        # Sidekiq 8 stores the timestamps as integer epoch milliseconds, earlier versions as float
+        # epoch seconds. Decided by type, as Sidekiq::JobRecord#time_from_timestamp does: a Sidekiq 8
+        # process still runs retries and scheduled jobs enqueued by an older one.
+        def time_from(timestamp)
+          return Time.at(timestamp) if timestamp.is_a?(Float)
+
+          Time.at(timestamp / 1000, timestamp % 1000, :millisecond)
         end
 
         def named_arguments_from(job)
