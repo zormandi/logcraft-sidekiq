@@ -32,6 +32,23 @@ RSpec.describe Logcraft::Sidekiq::JobContext do
                                      enqueued_at: Time.at(now_as_float).iso8601(3)
     end
 
+    context 'when the timestamps are integer epoch milliseconds (Sidekiq 8)' do
+      let(:job_hash) { sidekiq_job_hash created_at: 1_700_000_000_123, enqueued_at: 1_700_000_000_456 }
+
+      it 'contains them with millisecond precision' do
+        expect(job_message).to include created_at: Time.at(1_700_000_000, 123, :millisecond).iso8601(3),
+                                       enqueued_at: Time.at(1_700_000_000, 456, :millisecond).iso8601(3)
+      end
+
+      context 'when the job was enqueued by an older Sidekiq (float epoch seconds)' do
+        let(:job_hash) { sidekiq_job_hash created_at: 1_700_000_000.5, enqueued_at: 1_700_000_000.5 }
+
+        it 'still reads them as seconds' do
+          expect(job_message).to include created_at: Time.at(1_700_000_000.5).iso8601(3)
+        end
+      end
+    end
+
     it 'contains the number of times this job has run (including the current execution)' do
       expect(job_message).to include run_count: 1
     end
